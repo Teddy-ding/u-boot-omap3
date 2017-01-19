@@ -234,8 +234,8 @@ static void setup_net_chip(void);
 	MUX_VAL(CP(MCBSP3_FSX),		(IEN  | PTD | DIS | M1)) /*UART2_RX*/\
 	MUX_VAL(CP(UART2_CTS),		(IEN  | PTU | EN  | M0)) /*UART2_CTS*/\
 	MUX_VAL(CP(UART2_RTS),		(IDIS | PTD | DIS | M0)) /*UART2_RTS*/\
-	/*MUX_VAL(CP(UART2_TX),		(IDIS | PTD | DIS | M0))*/ /*UART2_TX*/\
-	/*MUX_VAL(CP(UART2_RX),		(IEN  | PTD | DIS | M0))*/ /*UART2_RX*/\
+	MUX_VAL(CP(UART2_TX),		(IDIS | PTD | DIS | M0)) /*UART2_TX*/\
+	MUX_VAL(CP(UART2_RX),		(IEN  | PTD | DIS | M0)) /*UART2_RX*/\
  /*Modem Interface */\
 	MUX_VAL(CP(UART1_TX),		(IDIS | PTD | DIS | M0)) /*UART1_TX*/\
 	MUX_VAL(CP(UART1_RTS),		(IDIS | PTD | DIS | M0)) /*UART1_RTS*/\
@@ -254,8 +254,8 @@ static void setup_net_chip(void);
 	MUX_VAL(CP(MCBSP1_DX),		(IDIS | PTD | DIS | M0)) /*MCBSP1_DX*/\
 	MUX_VAL(CP(MCBSP1_DR),		(IEN  | PTD | DIS | M0)) /*MCBSP1_DR*/\
 	MUX_VAL(CP(MCBSP_CLKS),		(IEN  | PTU | DIS | M0)) /*MCBSP_CLKS  */\
-	MUX_VAL(CP(MCBSP1_FSX),     (IEN  | PTD | DIS | M0)) /*MCBSP1_FSX*/\
-	MUX_VAL(CP(MCBSP1_CLKX),    (IEN  | PTD | DIS | M0)) /*MCBSP1_CLKX  */\
+	MUX_VAL(CP(MCBSP1_FSX),     (IEN  | PTD | DIS | M1)) /*MCBSP1_FSX*/\
+	MUX_VAL(CP(MCBSP1_CLKX),    (IEN  | PTD | DIS | M1)) /*MCBSP1_CLKX  */\
  /*Serial Interface*/\
 	MUX_VAL(CP(UART3_CTS_RCTX),	(IEN  | PTD | EN  | M0)) /*UART3_CTS_*/\
 								 /* RCTX*/\
