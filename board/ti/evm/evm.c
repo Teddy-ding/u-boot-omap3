@@ -28,6 +28,7 @@
  * MA 02111-1307 USA
  */
 #include <common.h>
+#include <twl4030.h>
 #include <netdev.h>
 #include <asm/io.h>
 #include <asm/arch/mem.h>
@@ -90,6 +91,10 @@ int misc_init_r(void)
 
 #ifdef CONFIG_DRIVER_OMAP34XX_I2C
 	i2c_init(CONFIG_SYS_I2C_SPEED, CONFIG_SYS_I2C_SLAVE);
+#endif
+
+#ifdef CONFIG_TWL4030_LED
+	twl4030_led_init(TWL4030_LED_LEDEN_LEDAON | TWL4030_LED_LEDEN_LEDBON);
 #endif
 
 #if defined(CONFIG_CMD_NET)
