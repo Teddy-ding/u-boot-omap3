@@ -94,7 +94,7 @@ int misc_init_r(void)
 #endif
 
 #ifdef CONFIG_TWL4030_LED
-	twl4030_led_init(TWL4030_LED_LEDEN_LEDAON | TWL4030_LED_LEDEN_LEDBON);
+	twl4030_led_init(TWL4030_LED_LEDEN_LEDBON);
 #endif
 
 #if defined(CONFIG_CMD_NET)
