@@ -72,7 +72,7 @@
  */
 #define CONFIG_ENV_SIZE			(128 << 10)	/* 128 KiB */
 						/* Sector */
-#define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (128 << 10))
+#define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (128 << 10)+ (512 << 10))
 #define CONFIG_SYS_GBL_DATA_SIZE	128	/* bytes reserved for */
 						/* initial data */
 /*
@@ -153,6 +153,15 @@
 #define CONFIG_CMD_FAT		/* FAT support			*/
 #define CONFIG_CMD_JFFS2	/* JFFS2 Support		*/
 
+#define CONFIG_CMD_UBI         /* ubifs Support                */
+#define CONFIG_CMD_UBIFS
+#define CONFIG_RBTREE
+#define CONFIG_MTD_DEVICE
+#define CONFIG_MTD_PARTITIONS
+#define CONFIG_CMD_MTDPARTS
+#define CONFIG_LZO
+
+
 #define CONFIG_CMD_I2C		/* I2C serial bus support	*/
 #define CONFIG_CMD_MMC		/* MMC support			*/
 #define CONFIG_CMD_NAND		/* NAND support			*/
@@ -213,8 +222,8 @@
 		"root=/dev/mmcblk0p2  rw  " \
 		"rootfstype=ext3 rootwait\0" \
 	"nandargs=setenv bootargs console=${console} " \
-		"root=/dev/mtdblock4 rw " \
-		"rootfstype=jffs2\0" \
+		"noinitrd ip=off mem=256M rootwait=1 rw ubi.mtd=4,2048 " \
+		"root=ubi0:rootfs   rootfstype=ubifs\0" \
 	"loadbootscript=fatload mmc 0 ${loadaddr} boot.scr\0" \
 	"bootscript=echo Running bootscript from mmc ...; " \
 		"source ${loadaddr}\0" \
@@ -224,7 +233,7 @@
 		"bootm ${loadaddr}\0" \
 	"nandboot=echo Booting from nand ...; " \
 		"run nandargs; " \
-		"onenand read ${loadaddr} 280000 400000; " \
+		"nand read ${loadaddr} 280000 400000; " \
 		"bootm ${loadaddr}\0" \
 
 #define CONFIG_BOOTCOMMAND \
