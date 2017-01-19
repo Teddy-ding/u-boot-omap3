@@ -359,6 +359,7 @@ extern unsigned int boot_flash_type;
  * SMSC9115 Ethernet from SMSC9118 family
  *----------------------------------------------------------------------------
  */
+#define CONFIG_CMD_NET
 #if defined(CONFIG_CMD_NET)
 
 #define CONFIG_NET_MULTI

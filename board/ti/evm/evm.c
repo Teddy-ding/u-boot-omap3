@@ -124,18 +124,20 @@ void set_muxconf_regs(void)
  */
 static void setup_net_chip(void)
 {
-	struct gpio *gpio3_base = (struct gpio *)OMAP34XX_GPIO3_BASE;
-	struct gpio *gpio1_base = (struct gpio *)OMAP34XX_GPIO1_BASE;
 	struct ctrl *ctrl_base = (struct ctrl *)OMAP34XX_CTRL_BASE;
+	struct ctrl_id *id_base = (struct ctrl_id *)OMAP34XX_ID_L4_IO_BASE;
+	uchar enetaddr[6];
+	u32 die_id_0;
+	u32 die_id_1;
 
 	/* Configure GPMC registers */
-	writel(NET_GPMC_CONFIG1, &gpmc_cfg->cs[5].config1);
-	writel(NET_GPMC_CONFIG2, &gpmc_cfg->cs[5].config2);
-	writel(NET_GPMC_CONFIG3, &gpmc_cfg->cs[5].config3);
-	writel(NET_GPMC_CONFIG4, &gpmc_cfg->cs[5].config4);
-	writel(NET_GPMC_CONFIG5, &gpmc_cfg->cs[5].config5);
-	writel(NET_GPMC_CONFIG6, &gpmc_cfg->cs[5].config6);
-	writel(NET_GPMC_CONFIG7, &gpmc_cfg->cs[5].config7);
+	writel(NET_GPMC_CONFIG1, &gpmc_cfg->cs[3].config1);
+	writel(NET_GPMC_CONFIG2, &gpmc_cfg->cs[3].config2);
+	writel(NET_GPMC_CONFIG3, &gpmc_cfg->cs[3].config3);
+	writel(NET_GPMC_CONFIG4, &gpmc_cfg->cs[3].config4);
+	writel(NET_GPMC_CONFIG5, &gpmc_cfg->cs[3].config5);
+	writel(NET_GPMC_CONFIG6, &gpmc_cfg->cs[3].config6);
+	writel(NET_GPMC_CONFIG7, &gpmc_cfg->cs[3].config7);
 
 	/* Enable off mode for NWE in PADCONF_GPMC_NWE register */
 	writew(readw(&ctrl_base ->gpmc_nwe) | 0x0E00, &ctrl_base->gpmc_nwe);
@@ -145,30 +147,25 @@ static void setup_net_chip(void)
 	writew(readw(&ctrl_base->gpmc_nadv_ale) | 0x0E00,
 		&ctrl_base->gpmc_nadv_ale);
 
-	/* determine omap3evm revision */
-	omap3_evm_get_revision();
+	/* Use OMAP DIE_ID as MAC address */
+	if (!eth_getenv_enetaddr("ethaddr", enetaddr))
+	{
+		die_id_0 = readl(&id_base->die_id_0);
+		die_id_1 = readl(&id_base->die_id_1);
 
-	if ( get_omap3_evm_rev() == OMAP3EVM_BOARD_GEN_1 ){
-		/* Make GPIO 64 as output pin */
-		writel(readl(&gpio3_base->oe) & ~(GPIO0), &gpio3_base->oe);
+		enetaddr[0] = 0x02; /* locally administered */
+		enetaddr[1] = (die_id_1) & 0xFF;
+		enetaddr[2] = (die_id_0 >> 24) & 0xFF;
+		enetaddr[3] = (die_id_0 >> 16) & 0xFF;
+		enetaddr[4] = (die_id_0 >> 8) & 0xFF;
+		enetaddr[5] = (die_id_0) & 0xFF;
 
-		/* Now send a pulse on the GPIO pin */
-		writel(GPIO0, &gpio3_base->setdataout);
-		udelay(1);
-		writel(GPIO0, &gpio3_base->cleardataout);
-		udelay(1);
-		writel(GPIO0, &gpio3_base->setdataout);
-	}else{
-		/* Make GPIO 07 as output pin */
-		writel(readl(&gpio1_base->oe) & ~(GPIO7), &gpio1_base->oe);
-
-		/* Now send a pulse on the GPIO pin */
-		writel(GPIO7, &gpio1_base->setdataout);
-		udelay(1);
-		writel(GPIO7, &gpio1_base->cleardataout);
-		udelay(1);
-		writel(GPIO7, &gpio1_base->setdataout);
+		eth_setenv_enetaddr("ethaddr", enetaddr);
 	}
+
+	printf("Ethernet MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n",
+		enetaddr[0], enetaddr[1], enetaddr[2],
+		enetaddr[3], enetaddr[4], enetaddr[5]);
 
 }
 
