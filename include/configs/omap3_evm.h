@@ -106,7 +106,7 @@
 #define CONFIG_DOS_PARTITION		1
 
 /* DDR - I use Micron DDR */
-#define CONFIG_OMAP3_MICRON_DDR		1
+#define CONFIG_OMAP3_ISSI_DDR		1
 
 /* USB
  * Enable CONFIG_MUSB_HCD for Host functionalities MSC, keyboard

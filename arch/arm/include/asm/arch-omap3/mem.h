@@ -128,6 +128,41 @@ enum {
 		(MICRON_XSR_165 << 0) | (MICRON_TXP_165 << 8) |	\
 		(MICRON_TWTR_165 << 16))
 
+/* Issi part of 3430 EVM (165MHz optimized) 6.06ns
+					 *   ACTIMA
+					 *	TDAL = Twr/Tck + Trp/tck = 15/6 + 18 /6 = 2.5 + 3 = 5.5 -> 6
+					 *	TDPL (Twr) = 15/6	= 2.5 -> 3
+					 *	TRRD = 12/6	= 2
+					 *	TRCD = 18/6 = 3
+					 *	TRP = 18/6	= 3
+					 *	TRAS = 42/6	= 7
+					 *	TRC = 60/6	= 10
+					 *	TRFC = 72/6	= 12
+					 *   ACTIMB
+					 *	TWTR =  2
+					 *	TCKE =  1
+					 *	TXSR =  120/6  = 20
+					 *	TXP  =  1
+					 */
+					 #define ISSI_TDAL_165   6
+					#define ISSI_TDPL_165   3
+					#define ISSI_TRRD_165   2
+					#define ISSI_TRCD_165   3
+					#define ISSI_TRP_165    3
+					#define ISSI_TRAS_165   7
+					#define ISSI_TRC_165   10
+					#define ISSI_TRFC_165  12
+					#define ISSI_V_ACTIMA_165 ((ISSI_TRFC_165 << 27) | (ISSI_TRC_165 << 22) | (ISSI_TRAS_165 << 18) \
+							| (ISSI_TRP_165 << 15) | (ISSI_TRCD_165 << 12) |(ISSI_TRRD_165 << 9) | \
+							(ISSI_TDPL_165 << 6) | (ISSI_TDAL_165))
+
+					#define ISSI_TWTR_165   2
+					#define ISSI_TCKE_165   1
+					#define ISSI_TXP_165    1
+					#define ISSI_XSR_165    20
+					#define ISSI_V_ACTIMB_165 ((ISSI_TCKE_165 << 12) | (ISSI_XSR_165 << 0)) | \
+									(ISSI_TXP_165 << 8) | (ISSI_TWTR_165 << 16)
+
 #ifdef CONFIG_OMAP3_INFINEON_DDR
 #define V_ACTIMA_165 INFINEON_V_ACTIMA_165
 #define V_ACTIMB_165 INFINEON_V_ACTIMB_165
@@ -136,6 +171,11 @@ enum {
 #define V_ACTIMA_165 MICRON_V_ACTIMA_165
 #define V_ACTIMB_165 MICRON_V_ACTIMB_165
 #endif
+#ifdef CONFIG_OMAP3_ISSI_DDR
+#define V_ACTIMA_165 ISSI_V_ACTIMA_165
+#define V_ACTIMB_165 ISSI_V_ACTIMB_165
+#endif
+
 
 #if !defined(V_ACTIMA_165) || !defined(V_ACTIMB_165)
 #error "Please choose the right DDR type in config header"

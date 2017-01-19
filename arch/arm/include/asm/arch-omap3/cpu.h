@@ -254,10 +254,10 @@ typedef struct emif4 {
 #define DEEPPD			(0x1 << 3)
 #define B32NOT16		(0x1 << 4)
 #define BANKALLOCATION		(0x2 << 6)
-#define RAMSIZE_128		(0x40 << 8) /* RAM size in 2MB chunks */
+#define RAMSIZE_256		(0x80 << 8) /* RAM size in 2MB chunks */
 #define ADDRMUXLEGACY		(0x1 << 19)
 #define CASWIDTH_10BITS		(0x5 << 20)
-#define RASWIDTH_13BITS		(0x2 << 24)
+#define RASWIDTH_14BITS		(0x3 << 24)
 #define BURSTLENGTH4		(0x2 << 0)
 #define CASL3			(0x3 << 4)
 #define SDRC_ACTIM_CTRL0_BASE	(OMAP34XX_SDRC_BASE + 0x9C)

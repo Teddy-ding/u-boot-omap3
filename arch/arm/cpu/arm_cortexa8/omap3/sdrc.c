@@ -138,8 +138,8 @@ void do_sdrc_init(u32 cs, u32 early)
 		sdelay(0x20000);
 	}
 
-	writel(RASWIDTH_13BITS | CASWIDTH_10BITS | ADDRMUXLEGACY |
-			RAMSIZE_128 | BANKALLOCATION | B32NOT16 | B32NOT16 |
+	writel(RASWIDTH_14BITS | CASWIDTH_10BITS | ADDRMUXLEGACY |
+			RAMSIZE_256 | BANKALLOCATION | B32NOT16  |
 			DEEPPD | DDR_SDRAM, &sdrc_base->cs[cs].mcfg);
 	writel(ARCV | ARE_ARCV_1, &sdrc_base->cs[cs].rfr_ctrl);
 	if (is_cpu_family(CPU_OMAP36XX)) {
