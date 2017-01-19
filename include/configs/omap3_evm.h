@@ -179,6 +179,7 @@
 #define CONFIG_TWL4030_LED			1
 #define CONFIG_TWL4030_GPIO			1
 
+#define CONFIG_TWL4030_USB		1
 
 /*
  * Board NAND Info.
@@ -191,6 +192,7 @@
 
 #define CONFIG_SYS_MAX_NAND_DEVICE	1		/* Max number of */
 							/* NAND devices */
+#define CONFIG_SYS_64BIT_VSPRINTF		/* needed for nand_util.c */
 #define CONFIG_JFFS2_NAND
 /* nand device jffs2 lives on */
 #define CONFIG_JFFS2_DEV		"nand0"
@@ -257,6 +259,9 @@
 #define CONFIG_SYS_MEMTEST_START	(OMAP34XX_SDRC_CS0)
 #define CONFIG_SYS_MEMTEST_END		(OMAP34XX_SDRC_CS0 + \
 					0x01F00000) /* 31MB */
+#define CONFIG_SYS_ALT_MEMTEST		1	/* Enable an alternative,
+						more extensive mem test */
+#define CONFIG_SYS_MEMTEST_SCRATCH	(CONFIG_SYS_MEMTEST_END - 4)
 
 #define CONFIG_SYS_LOAD_ADDR		(OMAP34XX_SDRC_CS0) /* default load */
 								/* address */
@@ -358,7 +363,7 @@ extern unsigned int boot_flash_type;
 
 #define CONFIG_NET_MULTI
 #define CONFIG_SMC911X
-#define CONFIG_SMC911X_32_BIT
+#define CONFIG_SMC911X_16_BIT
 #define CONFIG_SMC911X_BASE	0x2C000000
 
 #endif /* (CONFIG_CMD_NET) */
