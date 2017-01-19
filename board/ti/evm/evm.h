@@ -254,8 +254,8 @@ static void setup_net_chip(void);
 	MUX_VAL(CP(MCBSP1_DX),		(IDIS | PTD | DIS | M0)) /*MCBSP1_DX*/\
 	MUX_VAL(CP(MCBSP1_DR),		(IEN  | PTD | DIS | M0)) /*MCBSP1_DR*/\
 	MUX_VAL(CP(MCBSP_CLKS),		(IEN  | PTU | DIS | M0)) /*MCBSP_CLKS  */\
-	MUX_VAL(CP(MCBSP1_FSX),		(IEN  | PTD | DIS | M0)) /*MCBSP1_FSX*/\
-	MUX_VAL(CP(MCBSP1_CLKX),	(IEN  | PTD | DIS | M0)) /*MCBSP1_CLKX  */\
+	MUX_VAL(CP(MCBSP1_FSX),		(IEN  | PTD | DIS | M1)) /*UART2_RX*/\
+	MUX_VAL(CP(MCBSP1_CLKX),	(IEN  | PTD | DIS | M1)) /*UART2_TX */\
  /*Serial Interface*/\
 	MUX_VAL(CP(UART3_CTS_RCTX),	(IEN  | PTD | EN  | M0)) /*UART3_CTS_*/\
 								 /* RCTX*/\
