@@ -196,16 +196,16 @@
 #define CONFIG_JFFS2_PART_SIZE		0xf980000	/* sz of jffs2 part */
 
 /* Environment information */
-#define CONFIG_BOOTDELAY	10
+#define CONFIG_BOOTDELAY	3
 
 #define CONFIG_BOOTFILE		uImage
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"loadaddr=0x82000000\0" \
 	"usbtty=cdc_acm\0" \
-	"console=ttyS2,115200n8\0" \
-	"mmcargs=setenv bootargs console=${console} " \
-		"root=/dev/mmcblk0p2 rw " \
+	"console=ttyO2,115200n8\0" \
+	"mmcargs=setenv bootargs console=${console}  " \
+		"root=/dev/mmcblk0p2  rw  " \
 		"rootfstype=ext3 rootwait\0" \
 	"nandargs=setenv bootargs console=${console} " \
 		"root=/dev/mtdblock4 rw " \
